@@ -10,7 +10,7 @@
 
 
     <div class="text-end">
-        <a asp-controller="Category" asp-action="Create" class="btn btn-outline-primary">Add New</a>
+        <a asp-controller="Category" asp-action="Create" class="btn btn-primary">Add New</a>
     </div>
 
 
@@ -40,8 +40,8 @@
                     <td>@item.Name</td>
                     <td>@item.Description</td>
                     <td>
-                        <a asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-outline-warning">Edit</a>
-                        <a asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-outline-danger">Delete</a>
+                        <a asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
 

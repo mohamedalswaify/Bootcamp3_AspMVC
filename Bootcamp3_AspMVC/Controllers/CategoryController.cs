@@ -21,8 +21,6 @@ namespace Bootcamp3_AspMVC.Controllers
         public IActionResult Index()
         {
             IEnumerable<Category> categories = _context.Categories.ToList();
-           
-
             return View(categories);
         }
 
@@ -37,9 +35,28 @@ namespace Bootcamp3_AspMVC.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+
+
+            try
+            {
+
+                if (!ModelState.IsValid) { 
+                
+                return View(category);
+                }
+
+
+
+                _context.Categories.Add(category);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return Content("حدث  خطا غير متوقع يرجي الاتصال بالدعم الفني.");
+            }
         }
 
 
@@ -56,6 +73,12 @@ namespace Bootcamp3_AspMVC.Controllers
         [HttpPost]
         public IActionResult Edit(Category category)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+
             _context.Categories.Update(category);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -65,6 +88,7 @@ namespace Bootcamp3_AspMVC.Controllers
         [HttpGet]
         public IActionResult Delete(int Id)
         {
+
             var category = _context.Categories.Find(Id);
             return View(category);
         }
