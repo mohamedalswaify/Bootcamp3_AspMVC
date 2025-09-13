@@ -8,5 +8,7 @@ namespace Bootcamp3_AspMVC.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public ICollection<Employee>? Employees { get; set; }
     }
 }

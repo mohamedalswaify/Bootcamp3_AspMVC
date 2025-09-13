@@ -35,6 +35,9 @@
                 </th>
 
                 <th>
+                    Department
+                </th>
+                <th>
                     Actions
                 </th>
             </tr>
@@ -49,6 +52,7 @@
                     <td>@item.Email</td>
                     <td>@item.Phone</td>
                     <td>@item.City</td>
+                    <td>@item.Department?.Name</td>
                     <td>
                         <a asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-warning">Edit</a>
                         <a asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>

@@ -1,6 +1,8 @@
 ﻿using Bootcamp3_AspMVC.Data;
 using Bootcamp3_AspMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bootcamp3_AspMVC.Controllers
 {
@@ -15,12 +17,20 @@ namespace Bootcamp3_AspMVC.Controllers
 
         }
 
+        private void CreateCategory(int selected = 0)
+        {
+            IEnumerable<Department> depts = _context.Departments.ToList();
+            SelectList selectListItems = new SelectList(depts, "Id", "Name", selected);
+            ViewBag.deptsList = selectListItems;
+        }
 
 
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Employee> emps = _context.Employees.ToList();
+            IEnumerable<Employee> emps = _context.Employees
+                .Include(e => e.Department)
+                .ToList();
             return View(emps);
         }
 
@@ -29,6 +39,7 @@ namespace Bootcamp3_AspMVC.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            CreateCategory();
             return View();
         }
 
@@ -68,6 +79,7 @@ namespace Bootcamp3_AspMVC.Controllers
         public IActionResult Edit(int Id)
         {
             var emp = _context.Employees.Find(Id);
+            CreateCategory();
             return View(emp);
         }
 

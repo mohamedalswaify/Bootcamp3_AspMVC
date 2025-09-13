@@ -30,6 +30,13 @@
         <span asp-validation-for="City" class="text-danger"></span>
     </div>
 
+    <div class="mb-3">
+        <label for="DepartmentId">Department</label>
+        <select asp-for="DepartmentId" class="form-control" asp-items="@ViewBag.deptsList">
+            <option value="0" disabled selected>Select Category</option>
+        </select>
+    </div>
+
 
     <button type="submit" class="btn btn-outline-primary">Save</button>
     <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
