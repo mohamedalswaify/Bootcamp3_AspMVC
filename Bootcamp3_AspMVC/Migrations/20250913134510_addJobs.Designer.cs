@@ -4,6 +4,7 @@ using Bootcamp3_AspMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bootcamp3_AspMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250913134510_addJobs")]
+    partial class addJobs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,9 +81,6 @@ namespace Bootcamp3_AspMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("JobId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -92,8 +92,6 @@ namespace Bootcamp3_AspMVC.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("JobId");
 
                     b.ToTable("Employees");
                 });
@@ -152,13 +150,7 @@ namespace Bootcamp3_AspMVC.Migrations
                         .WithMany("Employees")
                         .HasForeignKey("DepartmentId");
 
-                    b.HasOne("Bootcamp3_AspMVC.Models.Job", "Job")
-                        .WithMany("Employees")
-                        .HasForeignKey("JobId");
-
                     b.Navigation("Department");
-
-                    b.Navigation("Job");
                 });
 
             modelBuilder.Entity("Bootcamp3_AspMVC.Models.Product", b =>
@@ -176,11 +168,6 @@ namespace Bootcamp3_AspMVC.Migrations
                 });
 
             modelBuilder.Entity("Bootcamp3_AspMVC.Models.Department", b =>
-                {
-                    b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("Bootcamp3_AspMVC.Models.Job", b =>
                 {
                     b.Navigation("Employees");
                 });

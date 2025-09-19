@@ -19,5 +19,14 @@ namespace Bootcamp3_AspMVC.Models
 
         public Department? Department { get; set; }
 
+
+
+        [ForeignKey("Job")]
+        public int? JobId { get; set; }
+
+        public Job? Job { get; set; }
+
+
+
     }
 }

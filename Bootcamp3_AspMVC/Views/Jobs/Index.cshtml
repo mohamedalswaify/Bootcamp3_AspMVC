@@ -1,16 +1,16 @@
-﻿@model IEnumerable<Employee>
+﻿@model IEnumerable<Job>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Employees List</h1>
+<h1>Jobs List</h1>
 
 
 <div class="container">
 
 
     <div class="text-end">
-        <a asp-controller="Employees" asp-action="Create" class="btn btn-primary">Add New</a>
+        <a asp-controller="Jobs" asp-action="Create" class="btn btn-primary">Add New</a>
     </div>
 
 
@@ -24,24 +24,6 @@
                     Name
                 </th>
                 <th>
-                    Email
-                </th>
-
-                <th>
-                    Phone
-                </th>
-                <th>
-                    City
-                </th>
-
-                <th>
-                    Department
-                </th>
-
-                <th>
-                    Job
-                </th>
-                <th>
                     Actions
                 </th>
             </tr>
@@ -53,11 +35,6 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Name</td>
-                    <td>@item.Email</td>
-                    <td>@item.Phone</td>
-                    <td>@item.City</td>
-                    <td>@item.Department?.Name</td>
-                    <td>@item.Job?.Name</td>
                     <td>
                         <a asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-warning">Edit</a>
                         <a asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>

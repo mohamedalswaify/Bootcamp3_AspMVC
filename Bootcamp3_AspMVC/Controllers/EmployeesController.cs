@@ -17,12 +17,20 @@ namespace Bootcamp3_AspMVC.Controllers
 
         }
 
-        private void CreateCategory(int selected = 0)
+        private void Createdepts(int selected = 0)
         {
             IEnumerable<Department> depts = _context.Departments.ToList();
             SelectList selectListItems = new SelectList(depts, "Id", "Name", selected);
             ViewBag.deptsList = selectListItems;
         }
+
+        private void CreateJobs(int selected = 0)
+        {
+            IEnumerable<Job> depts = _context.Jobs.ToList();
+            SelectList selectListItems = new SelectList(depts, "Id", "Name", selected);
+            ViewBag.JobsList = selectListItems;
+        }
+
 
 
         [HttpGet]
@@ -30,6 +38,7 @@ namespace Bootcamp3_AspMVC.Controllers
         {
             IEnumerable<Employee> emps = _context.Employees
                 .Include(e => e.Department)
+                .Include(e => e.Job)
                 .ToList();
             return View(emps);
         }
@@ -39,7 +48,8 @@ namespace Bootcamp3_AspMVC.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            CreateCategory();
+            Createdepts();
+            CreateJobs();
             return View();
         }
 
@@ -79,7 +89,8 @@ namespace Bootcamp3_AspMVC.Controllers
         public IActionResult Edit(int Id)
         {
             var emp = _context.Employees.Find(Id);
-            CreateCategory();
+            Createdepts();
+            CreateJobs();
             return View(emp);
         }
 

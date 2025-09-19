@@ -35,7 +35,15 @@
         <select asp-for="DepartmentId" class="form-control" asp-items="@ViewBag.deptsList">
             <option value="0" disabled selected>Select Category</option>
         </select>
+    </div> 
+    
+    <div class="mb-3">
+        <label for="JobId">Job</label>
+        <select asp-for="JobId" class="form-control" asp-items="@ViewBag.JobsList">
+            <option value="0" disabled selected>Select Job</option>
+        </select>
     </div>
+
 
 
     <button type="submit" class="btn btn-outline-primary">Save</button>
