@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bootcamp3_AspMVC.Models
@@ -9,6 +10,9 @@ namespace Bootcamp3_AspMVC.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+
+        [DisplayName("pass")]
+        public string Password { get; set; }
         public string Phone { get; set; }
         public string City { get; set; }
 

@@ -1,9 +1,11 @@
 ﻿using Bootcamp3_AspMVC.Data;
+using Bootcamp3_AspMVC.Filters;
 using Bootcamp3_AspMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bootcamp3_AspMVC.Controllers
 {
+    [SessionAuthorize]
     public class JobsController : Controller
     {
 

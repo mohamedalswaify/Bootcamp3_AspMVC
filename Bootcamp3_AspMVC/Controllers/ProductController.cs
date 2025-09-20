@@ -1,4 +1,5 @@
 ﻿using Bootcamp3_AspMVC.Data;
+using Bootcamp3_AspMVC.Filters;
 using Bootcamp3_AspMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bootcamp3_AspMVC.Controllers
 {
+    [SessionAuthorize]
     public class ProductController : Controller
     {
 

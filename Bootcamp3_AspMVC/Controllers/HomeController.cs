@@ -1,9 +1,11 @@
+using Bootcamp3_AspMVC.Filters;
 using Bootcamp3_AspMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Bootcamp3_AspMVC.Controllers
 {
+    [SessionAuthorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -13,8 +15,22 @@ namespace Bootcamp3_AspMVC.Controllers
             _logger = logger;
         }
 
+        private bool IsLoggedIn()
+        {
+            return !string.IsNullOrEmpty(HttpContext.Session.GetString("email"));
+        }
+
         public IActionResult Index()
         {
+            //var email = HttpContext.Session.GetString("email");
+            //if(email == null) {
+            //    return RedirectToAction("Login", "Account");
+            //}
+            if (!IsLoggedIn())
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return View();
         }
 
