@@ -33,6 +33,7 @@ namespace Bootcamp3_AspMVC.Controllers
 
 
         [HttpPost]
+       // [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
 
@@ -62,15 +63,29 @@ namespace Bootcamp3_AspMVC.Controllers
 
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string Uid)
         {
-            var category = _context.Categories.Find(Id);
+            var category = _context.Categories.FirstOrDefault(c => c.Uid == Uid);
+            //category.Uid = Guid.NewGuid().ToString();
+            //_context.SaveChanges();
             return View(category);
         }
 
 
+        //[HttpGet]
+        //public IActionResult Edit(int Id)
+        //{
+        //    var category = _context.Categories.Find(Id);
+        //    if (category != null)
+        //    {
+        //        return View(category);
+        //    }
+        //    return RedirectToAction("Index");
+        //}
+
 
         [HttpPost]
+       // [ValidateAntiForgeryToken]
         public IActionResult Edit(Category category)
         {
 
@@ -86,20 +101,27 @@ namespace Bootcamp3_AspMVC.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(string Uid)
         {
 
-            var category = _context.Categories.Find(Id);
+            var category = _context.Categories.FirstOrDefault(c => c.Uid == Uid);
             return View(category);
         }
 
 
 
         [HttpPost]
-        public IActionResult Delete(Category category)
+        [ValidateAntiForgeryToken]
+        public IActionResult PostDelete(string Uid)
         {
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
+            var category = _context.Categories.FirstOrDefault(c => c.Uid == Uid);
+            if(category != null)
+            {
+                _context.Categories.Remove(category);
+                _context.SaveChanges();
+               
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
