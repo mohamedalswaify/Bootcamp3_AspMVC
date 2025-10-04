@@ -54,6 +54,7 @@ namespace Bootcamp3_AspMVC.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Product product)
         {
 
@@ -84,25 +85,41 @@ namespace Bootcamp3_AspMVC.Controllers
 
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string Uid)
         {
-            var category = _context.Products.Find(Id);
+            var category = _context.Products.SingleOrDefault(e=>e.Uid ==Uid);
             CreateCategory();
+          //  category.Uid = Guid.NewGuid().ToString();
+          ////  _context.Products.Update(category);
+          //  _context.SaveChanges();
             return View(category);
         }
 
 
 
         [HttpPost]
-        public IActionResult Edit(Product product)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Product product ,string Uid)
         {
+            if (Uid != product.Uid)
+            {
+                return NotFound();
+            }
+
 
             if (!ModelState.IsValid)
             {
                 return View(product);
             }
 
-            _context.Products.Update(product);
+            var category = _context.Products.SingleOrDefault(e => e.Uid == product.Uid);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+                _context.Products.Update(product);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
@@ -119,6 +136,7 @@ namespace Bootcamp3_AspMVC.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(Product product)
         {
             _context.Products.Remove(product);

@@ -18,6 +18,8 @@ namespace Bootcamp3_AspMVC.Data
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<Course> Courses { get; set; }
+
 
 
     }

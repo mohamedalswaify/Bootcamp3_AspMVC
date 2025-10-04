@@ -1,4 +1,6 @@
 using Bootcamp3_AspMVC.Data;
+using Bootcamp3_AspMVC.Interfaces;
+using Bootcamp3_AspMVC.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +25,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 
+builder.Services.AddScoped(typeof(IRepository<>), typeof(MainRepository<>));
 
 
 

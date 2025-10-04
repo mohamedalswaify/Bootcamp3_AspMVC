@@ -1,5 +1,6 @@
 ﻿using Bootcamp3_AspMVC.Data;
 using Bootcamp3_AspMVC.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bootcamp3_AspMVC.Repository
 {
@@ -18,11 +19,12 @@ namespace Bootcamp3_AspMVC.Repository
 
         }
 
-        public void Delete(int id)
+        public void Delete(int id, int userId)
         {
             var entity = _context.Set<T>().Find(id);
             if (entity != null)
             {
+
                 _context.Set<T>().Remove(entity);
                 _context.SaveChanges();
             }
@@ -31,17 +33,26 @@ namespace Bootcamp3_AspMVC.Repository
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().ToList();
+
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().Find(id);
+
+        }
+
+        public T GetByUid(string Uid)
+        {
+            return _context.Set<T>().SingleOrDefault(e => EF.Property<string>(e, "Uid") == Uid);
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+            _context.SaveChanges();
+
         }
     }
 }
