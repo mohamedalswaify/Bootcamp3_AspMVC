@@ -15,7 +15,7 @@ namespace Bootcamp3_AspMVC.Repository
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+          //  _context.SaveChanges();
 
         }
 
@@ -26,7 +26,7 @@ namespace Bootcamp3_AspMVC.Repository
             {
 
                 _context.Set<T>().Remove(entity);
-                _context.SaveChanges();
+               // _context.SaveChanges();
             }
 
         }
@@ -51,7 +51,7 @@ namespace Bootcamp3_AspMVC.Repository
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
-            _context.SaveChanges();
+           // _context.SaveChanges();
 
         }
     }
