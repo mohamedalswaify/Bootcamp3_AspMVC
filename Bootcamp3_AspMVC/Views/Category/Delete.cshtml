@@ -8,6 +8,7 @@
 <form method="post" asp-action="PostDelete">
     @Html.AntiForgeryToken()
 
+    <input type="hidden" asp-for="Uid" name="Uid" />
     <input type="text" asp-for="Uid" hidden disabled name="Uid" class="form-control" />
     <div class="mb-3">
         <label for="Name">Name</label>

@@ -19,7 +19,7 @@ namespace Bootcamp3_AspMVC.Repository
 
         }
 
-        public void Delete(int id, int userId)
+        public void Delete(int id)
         {
             var entity = _context.Set<T>().Find(id);
             if (entity != null)

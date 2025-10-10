@@ -8,6 +8,8 @@
 <form method="post" asp-action="Edit">
     @Html.AntiForgeryToken()
 
+    <input type="hidden" asp-for="Uid" name="Uid" />
+
     <div class="mb-3">
         <label for="Name">Name</label>
         <input type="text" asp-for="Name" name="Name" class="form-control" />

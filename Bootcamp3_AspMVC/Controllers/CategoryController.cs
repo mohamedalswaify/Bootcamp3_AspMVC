@@ -52,8 +52,11 @@ namespace Bootcamp3_AspMVC.Controllers
 
 
 
-                _context.Categories.Add(category);
-                _context.SaveChanges();
+                //_context.Categories.Add(category);
+                //_context.SaveChanges();
+
+                _categoryRepository.Add(category);
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -93,16 +96,25 @@ namespace Bootcamp3_AspMVC.Controllers
        // [ValidateAntiForgeryToken]
         public IActionResult Edit(Category category)
         {
-
+       
             if (!ModelState.IsValid)
             {
                 return View(category);
             }
 
+            var cate = _categoryRepository.GetByUid(category.Uid);
+            if (cate == null)
+            {
+                return NotFound();
+            }
+
+
             //_context.Categories.Update(category);
             //_context.SaveChanges();
 
-            _categoryRepository.Update(category);
+            cate.Name = category.Name;
+            cate.Description = category.Description;
+            _categoryRepository.Update(cate);
             return RedirectToAction(nameof(Index));
         }
 

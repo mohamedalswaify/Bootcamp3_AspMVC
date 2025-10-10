@@ -1,5 +1,6 @@
 ﻿using Bootcamp3_AspMVC.Data;
 using Bootcamp3_AspMVC.Filters;
+using Bootcamp3_AspMVC.Interfaces;
 using Bootcamp3_AspMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,13 +12,14 @@ namespace Bootcamp3_AspMVC.Controllers
     public class ProductController : Controller
     {
 
-
+        private readonly IRepoProduct _productRepository;
 
         private readonly ApplicationDbContext _context;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(ApplicationDbContext context, IRepoProduct productRepository)
         {
             _context = context;
+            _productRepository = productRepository;
 
         }
 
@@ -26,12 +28,15 @@ namespace Bootcamp3_AspMVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Product> products =
-                _context.Products
-                .Include(p => p.Category)
-                .ToList();
+            //IEnumerable<Product> products =
+            //    _context.Products
+            //    .Include(p => p.Category)
+            //    .ToList();
 
-            return View(products);
+
+            var products2 = _productRepository.GetProductsWithCategory();
+
+            return View(products2);
         }
 
         private void CreateCategory(int selected =0)
