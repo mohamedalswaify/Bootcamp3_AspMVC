@@ -1,5 +1,6 @@
 ﻿using Bootcamp3_AspMVC.Data;
 using Bootcamp3_AspMVC.Interfaces;
+using Bootcamp3_AspMVC.Interfaces.IServices;
 using Bootcamp3_AspMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,24 +9,29 @@ namespace Bootcamp3_AspMVC.Controllers
     public class CategoryController : Controller
     {
 
-
-        private readonly ApplicationDbContext _context;
-        private readonly IRepository<Category> _categoryRepository;
-
-        public CategoryController(ApplicationDbContext context,IRepository<Category> repository)
+        private readonly ICategoryService _categoryService;
+        public CategoryController(ICategoryService categoryService)
         {
-            _categoryRepository = repository;
-            _context = context;
+            _categoryService = categoryService;
 
         }
-
 
         [HttpGet]
         public IActionResult Index()
         {
-          //  IEnumerable<Category> categories = _context.Categories.ToList();
-            IEnumerable<Category> categories =_categoryRepository.GetAll() ;
-            return View(categories);
+            try
+            {
+
+                IEnumerable<Category> categories = _categoryService.GetAll();
+                return View(categories);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         [HttpGet]
@@ -40,56 +46,20 @@ namespace Bootcamp3_AspMVC.Controllers
        // [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
+            if (!ModelState.IsValid) return View(category);
+            _categoryService.Create(category);
+            return RedirectToAction(nameof(Index));
 
-
-            try
-            {
-
-                if (!ModelState.IsValid) { 
-                
-                return View(category);
-                }
-
-
-
-                //_context.Categories.Add(category);
-                //_context.SaveChanges();
-
-                _categoryRepository.Add(category);
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-                return Content("حدث  خطا غير متوقع يرجي الاتصال بالدعم الفني.");
-            }
         }
-
-
 
         [HttpGet]
         public IActionResult Edit(string Uid)
         {
-           // var category = _context.Categories.FirstOrDefault(c => c.Uid == Uid);
-            var cate = _categoryRepository.GetByUid(Uid);
-            //category.Uid = Guid.NewGuid().ToString();
-            //_context.SaveChanges();
+            var cate = _categoryService.GetByUid(Uid);
             return View(cate);
         }
 
 
-        //[HttpGet]
-        //public IActionResult Edit(int Id)
-        //{
-        //    var category = _context.Categories.Find(Id);
-        //    if (category != null)
-        //    {
-        //        return View(category);
-        //    }
-        //    return RedirectToAction("Index");
-        //}
 
 
         [HttpPost]
@@ -97,24 +67,8 @@ namespace Bootcamp3_AspMVC.Controllers
         public IActionResult Edit(Category category)
         {
        
-            if (!ModelState.IsValid)
-            {
-                return View(category);
-            }
-
-            var cate = _categoryRepository.GetByUid(category.Uid);
-            if (cate == null)
-            {
-                return NotFound();
-            }
-
-
-            //_context.Categories.Update(category);
-            //_context.SaveChanges();
-
-            cate.Name = category.Name;
-            cate.Description = category.Description;
-            _categoryRepository.Update(cate);
+            if (!ModelState.IsValid) return View(category);
+            _categoryService.Update(category.Uid, category);
             return RedirectToAction(nameof(Index));
         }
 
@@ -122,9 +76,7 @@ namespace Bootcamp3_AspMVC.Controllers
         [HttpGet]
         public IActionResult Delete(string Uid)
         {
-
-           // var category = _context.Categories.FirstOrDefault(c => c.Uid == Uid);
-            var cate = _categoryRepository.GetByUid(Uid);
+            var cate =_categoryService.GetByUid(Uid);
             return View(cate);
         }
 
@@ -134,17 +86,7 @@ namespace Bootcamp3_AspMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult PostDelete(string Uid)
         {
-           // var category = _context.Categories.FirstOrDefault(c => c.Uid == Uid);
-            var cate = _categoryRepository.GetByUid(Uid);
-            if (cate != null)
-            {
-                //_context.Categories.Remove(category);
-                //_context.SaveChanges();
-
-                _categoryRepository.Delete(cate.Id);
-
-            }
-
+           _categoryService.DeleteByUid(Uid);
             return RedirectToAction(nameof(Index));
         }
 

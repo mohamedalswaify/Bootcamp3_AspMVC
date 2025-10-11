@@ -1,6 +1,8 @@
 using Bootcamp3_AspMVC.Data;
 using Bootcamp3_AspMVC.Interfaces;
+using Bootcamp3_AspMVC.Interfaces.IServices;
 using Bootcamp3_AspMVC.Repository;
+using Bootcamp3_AspMVC.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +31,9 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(MainRepository<>));
 builder.Services.AddScoped(typeof(IRepoProduct), typeof(RepoProduct));
 builder.Services.AddScoped(typeof(IRepoEmployee), typeof(RepoEmployee));
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+builder.Services.AddScoped(typeof(ICategoryService), typeof(CategoryService));
+
+
 
 
 

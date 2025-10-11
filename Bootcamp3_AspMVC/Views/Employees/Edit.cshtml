@@ -41,7 +41,14 @@
             <option value="0" disabled selected>Select Category</option>
         </select>
     </div>
-
+    <div class="mb-3">
+        <label for="TypeUser">Type User</label>
+        <select asp-for="TypeUser" class="form-control">
+            <option value="" disabled selected>Select Type User</option>
+            <option value="1">Admin</option>
+            <option value="2">Employee</option>
+        </select>
+    </div>
 
     <div class="mb-3">
         <label for="JobId">Job</label>

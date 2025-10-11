@@ -24,6 +24,9 @@
                     Name
                 </th>
                 <th>
+                    Type
+                </th>
+                <th>
                     Email
                 </th>
                 <th>
@@ -55,6 +58,25 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Name</td>
+                    <td>@(item.TypeUser == 1 ? "ادمن" : "موظف")</td>
+@* 
+                     <td>
+                         @if (item.TypeUser == 1)
+                         {
+                             <span class="badge bg-danger">ادمن</span>
+                         }
+                         else if (item.TypeUser == 2)
+                         {
+                             <span class="badge bg-primary">موظف</span>
+                         }
+                         else
+                         {
+                             <span class="badge bg-secondary">غير معروف</span>
+                         }
+                     </td> *@
+
+
+
                     <td>@item.Email</td>
                     <td>@item.Password</td>
                     <td>@item.Phone</td>

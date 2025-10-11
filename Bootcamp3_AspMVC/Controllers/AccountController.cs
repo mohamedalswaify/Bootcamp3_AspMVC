@@ -29,8 +29,18 @@ namespace Bootcamp3_AspMVC.Controllers
             var employee = _context.Employees.FirstOrDefault(e =>e.Email==dto.email && e.Password ==dto.password);
             if (employee != null)
             {
-                HttpContext.Session.SetString("email", employee.Email);
-                return RedirectToAction("Index", "Home");
+                if(employee.TypeUser==1)
+                {
+                    HttpContext.Session.SetString("email", employee.Email);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    HttpContext.Session.SetString("email", employee.Email);
+                    return RedirectToAction("Index", "HomeEmployee");
+                }
+
+              
             }
             return View();
         }

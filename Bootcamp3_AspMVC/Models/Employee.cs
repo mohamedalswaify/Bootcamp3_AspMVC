@@ -17,6 +17,7 @@ namespace Bootcamp3_AspMVC.Models
         public string City { get; set; }
 
 
+        public int TypeUser { get; set; } = 2; // 1->admin  2->user
 
         [ForeignKey("Department")]
         public int? DepartmentId { get; set; }

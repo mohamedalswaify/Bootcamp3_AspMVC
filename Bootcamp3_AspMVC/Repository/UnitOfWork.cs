@@ -13,6 +13,7 @@ namespace Bootcamp3_AspMVC.Repository
             _employeeRepository = new RepoEmployee(_context);
             _deptRepository = new MainRepository<Department>(_context);
             _jobRepository = new MainRepository<Job>(_context);
+            _categoryRepository = new MainRepository<Category>(_context);
 
         }
 
@@ -20,6 +21,7 @@ namespace Bootcamp3_AspMVC.Repository
      public   IRepoEmployee _employeeRepository { get; }
      public IRepository<Department> _deptRepository { get; }
      public  IRepository<Job> _jobRepository { get; }
+        public IRepository<Category> _categoryRepository { get; }
 
         public void Dispose()
         {
